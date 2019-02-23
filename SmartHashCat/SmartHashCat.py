@@ -22,8 +22,8 @@ import string
 import random
 
 
-def usage():
-    usage = ''''
+def get_usage():
+    return '''
     smarthashcat -p <attack phase number> \
     [arguments needed for the choosen phase]\
     \n\nExamples:\n\
@@ -35,11 +35,13 @@ def usage():
     mask attacks:\n\t\
     smarthashcat -p 1 -f hashes.txt'''
 
-    description = 'Smart HashCat cracker. Dictio are in '\
-                  '/usr/share/SmartHashCat/dict. Lists are in '\
-                  '/usr/share/SmartHashCat/lists'
+def get_description():
+    return 'Smart HashCat cracker. Dictio are in '\
+            '/usr/share/SmartHashCat/dict. Lists are in '\
+            '/usr/share/SmartHashCat/lists'
 
-    phase_help = '''The attack phase to proceed with.
+def get_phase_help():
+    return '''The attack phase to proceed with.
 
 Available options:
 0 - Dictionary generation phase
@@ -52,6 +54,25 @@ Available options:
 -1 - Phase 0 to Phase 6
 
 '''
+
+def get_workload_profile_help():
+    return '''Enable a specific workload profile, see pool below
+
+- [ Workload Profiles ] -
+
+  # | Performance | Runtime | Power Consumption | Desktop Impact
+ ===+=============+=========+===================+=================
+  1 | Low         |   2 ms  | Low               | Minimal
+  2 | Default     |  12 ms  | Economic          | Noticeable
+  3 | High        |  96 ms  | High              | Unresponsive
+  4 | Nightmare   | 480 ms  | Insane            | Headless
+
+'''
+
+def parse_args():
+    usage = get_usage()
+    description = get_description()
+
     parser = argparse.ArgumentParser(
         usage=usage, description=description,
         formatter_class=RawTextHelpFormatter)
@@ -68,7 +89,7 @@ Available options:
                         help="The hash type to brute force. See hashcat doc.")
     parser.add_argument('-p', '--phase',
                         action='store', type=int, required=False,
-                        help=phase_help, default=-1)
+                        help=get_phase_help(), default=-1)
     parser.add_argument('-o', '--smart_dict',
                         action='store', type=str, required=False,
                         help='The path to the dictionary to use for the phase '
@@ -84,7 +105,7 @@ Available options:
                         help='The "depth" argument to pass to cewl. '
                              '(default="1")',
                         default='1')
-    parser.add_argument('-f', '--hash_file', type=str, required=True,
+    parser.add_argument('-f', '--hash_file', type=str, required=False,
                         help='The path to the file with the hashes to crack.')
     parser.add_argument("-v", "--verbosity", action="count", default=0,
                         help="Increase output verbosity (default=0)")
@@ -110,23 +131,9 @@ Available options:
                         default='/usr/bin/hashcat')
     parser.add_argument("-w", "--workload_profile", action="store", type=int,
                         default=3,
-                        help='''Enable a specific workload profile, see pool below
-
-- [ Workload Profiles ] -
-
-  # | Performance | Runtime | Power Consumption | Desktop Impact
- ===+=============+=========+===================+=================
-  1 | Low         |   2 ms  | Low               | Minimal
-  2 | Default     |  12 ms  | Economic          | Noticeable
-  3 | High        |  96 ms  | High              | Unresponsive
-  4 | Nightmare   | 480 ms  | Insane            | Headless
-
-''')
-
+                        help=get_workload_profile_help())
     args = parser.parse_args()
-
     return args
-
 
 def print_hashcat_help_without_arguments(hashcat_path):
     help_text = CommandRunner.run_command(
@@ -139,14 +146,17 @@ def print_hashcat_help_without_arguments(hashcat_path):
         print(delimiter + (help_text.split(delimiter)
                            [1]).split('- [ Outfile Formats ] -')[0])
 
-
 def get_random_token(length):
     alphabet = string.ascii_lowercase + string.digits
     return ''.join(random.choice(alphabet) for i in range(length))
 
+def print_error_and_usage_then_exit(error):
+    print(get_usage())
+    print(error)
+    exit(1)
 
 def main():
-    args = usage()
+    args = parse_args()
 
     if args.clear and args.clear > 0:
         print("Clearing all unnecessary files!")
@@ -211,8 +221,7 @@ def main():
         attacker.hashcat_hash_option = hash_type
         print("Using default hash type NetNTLMv2 (-m {})".format(
             hash_type))
-    if args.hash_file:
-        attacker.hashes_file = args.hash_file
+        
     if args.show:
         attacker.show_when_done = args.show > 0
 
@@ -223,13 +232,13 @@ def main():
         attacker.custom_list = args.custom_list
 
     if not args.hash_file:
-        print("Hash file path (-f) needed for phase 1 to 6!")
-        exit(1)
+        print_error_and_usage_then_exit("Hash file path (-f) needed for phase 1 to 6!")
+    else:
+        attacker.hashes_file = args.hash_file
 
     if args.phase <= 0:
         if not args.company_name:
-            print("Company name (-n) needed for phase 0!")
-            exit(1)
+            print_error_and_usage_then_exit("Company name (-n) needed for phase 0!")
         attacker.phase_zero()
 
     if args.phase <= 1:
