@@ -9,7 +9,7 @@ mv -v OneRuleToRuleThemAll.rule /usr/share/hashcat/rules/
 
 echo '[*] Deploying SmartHashCat files'
 cp -rv usr/ /
-cp -rv opt/ /
+cp -rv SmartHashCat/ /opt/
 chmod +x /opt/SmartHashCat/SmartHashCat.py
 
 if [ -f /usr/share/SmartHashCat/lists/rockyou.txt ]; then
