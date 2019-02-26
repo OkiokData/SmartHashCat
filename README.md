@@ -10,8 +10,8 @@ HashCat wrapper, encapsulating the use of CeWL, to efficiently crack passwords.
 4. Quick mask attack
 5. Slow mask attack
 6. Slower mask attack
-    - Starts with bruteforce of 7 lenght passwords
-7. Desesperate mask attack
+    - Starts with bruteforce of 7 length passwords
+7. Desperate mask attack
 
 ## Installation
 ```
