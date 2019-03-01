@@ -19,7 +19,7 @@ class SmartHCAttacker:
 
         self.custom_list = ""
         self.smart_file = "tmp/SmartHCDict.txt"
-        self.rock_you_file = "/usr/share/wordlists/rockyou.txt"
+        self.rock_you_file = "/usr/share/SmartHashCat/lists/rockyou.txt"
         self.final_output_file = "outputs/final_output.txt"
 
     def phase_zero(self):
