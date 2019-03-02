@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo '[*] Installing required packages'
-apt install hashcat python3 cewl
+apt install -y hashcat python3 cewl
 
 echo '[*] Downloading HashCat rule OneRuleToRuleThemAll'
 wget https://raw.githubusercontent.com/NotSoSecure/password_cracking_rules/master/OneRuleToRuleThemAll.rule
