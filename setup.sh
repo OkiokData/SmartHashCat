@@ -29,3 +29,6 @@ else
         mv rockyou.txt /usr/share/SmartHashCat/lists/
     fi
 fi
+
+echo '[*] Creating symbolic link'
+ln -s /opt/SmartHashCat/SmartHashCat.py /usr/local/bin/SmartHashCat.py
