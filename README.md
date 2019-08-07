@@ -15,9 +15,9 @@ HashCat wrapper, encapsulating the use of CeWL, to efficiently crack passwords.
 
 ## Installation
 ```
-git clone URL
+git clone https://github.com/OkiokData/SmartHashCat.git
 cd SmartHashCat
-sh setup.sh
+sudo sh setup.sh
 ```
 
 ## Examples
