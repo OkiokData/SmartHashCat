@@ -34,10 +34,10 @@ class Phase:
 
     def send_content_to_file(self, command, content, file_out, append=True):
         if append:
-            CommandRunner.run_command(command + " " + content + " > " +
+            CommandRunner.run_command(command + " " + content + " >> " +
                                       file_out, silent=True)
         else:
-            CommandRunner.run_command(command + " " + content + " >> " +
+            CommandRunner.run_command(command + " " + content + " > " +
                                       file_out, silent=True)
 
     def copy_file_content_to_other_file(self, file_in, file_out, append=True):

@@ -16,8 +16,8 @@ class Phase0(Phase):
         self.company_name = company_name
         self.url = url
         self.smart_file_temp = "tmp/SmartHCDict_temp.txt"
-        self.custom_dict_en = "/usr/share/SmartHashCat/dict/1k_words_en.txt"
-        self.custom_dict_fr = "/usr/share/SmartHashCat/dict/1k_words_fr.txt"
+        self.custom_dict_en = "/usr/share/SmartHashCat/dict/words_en.txt"
+        self.custom_dict_fr = "/usr/share/SmartHashCat/dict/words_fr.txt"
         self.user_list = "/usr/share/SmartHashCat/lists/user_list.txt"
         self.most_common_pass = "/usr/share/SmartHashCat/lists/"\
             "most_common_pass.txt"
