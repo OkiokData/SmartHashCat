@@ -1,5 +1,5 @@
-import CommandRunner
-from Filter.FilterAbstract import FilterAbstract
+import command_runner
+from filter.filter_abstract import FilterAbstract
 
 
 class Filter(FilterAbstract):

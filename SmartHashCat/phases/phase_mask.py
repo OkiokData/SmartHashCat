@@ -1,9 +1,9 @@
-from Phases.Phase import Phase
-import CommandRunner
+from phases.phase import Phase
+import command_runner
 import imp
 import os
 import fnmatch
-import DynamicLoader
+import dynamic_loader
 
 
 class PhaseMask(Phase):
@@ -31,7 +31,7 @@ class PhaseMask(Phase):
             6: "desesperate"
         }
 
-        self.masks_list = DynamicLoader.load_mask()
+        self.masks_list = dynamic_loader.load_mask()
 
     def launch_hashcat(self, min_length, max_length, mask_start, mask_middle,
                        mask_end):
@@ -40,7 +40,7 @@ class PhaseMask(Phase):
             for j in range(0, i):
                 mask_complete += mask_middle
             mask_complete += mask_end
-            CommandRunner.run_command(self.hashcat_path + " -a 3 -w 3 " +
+            command_runner.run_command(self.hashcat_path + " -a 3 -w 3 " +
                                       self.session + " -m " +
                                       self.hashcat_hash_option + " " +
                                       self.hashes_file +
@@ -97,4 +97,4 @@ class PhaseMask(Phase):
                     mask_middle, mask_end)
 
         if self.show_when_done:
-            CommandRunner.run_command("cat" + self.final_output_file)
+            command_runner.run_command("cat" + self.final_output_file)

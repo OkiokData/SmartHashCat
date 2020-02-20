@@ -1,4 +1,4 @@
-import CommandRunner
+import command_runner
 
 
 class InputAbstract:
@@ -18,5 +18,5 @@ class InputAbstract:
     
     def cleanup_after_use(self):
         if self.need_to_clean_after_use:
-            CommandRunner.run_command("rm " + self.initial_filter_transit_file, silent=True)
+            command_runner.run_command("rm " + self.initial_filter_transit_file, silent=True)
     

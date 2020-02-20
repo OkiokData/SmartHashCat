@@ -40,10 +40,10 @@ def load_from_folder_and_sort(folder, sort=True):
         return not_sorted_input_list
 
 def load_input(sort=True):
-    return load_from_folder_and_sort("/Input/", sort)
+    return load_from_folder_and_sort("/input/", sort)
 
 def load_filter(sort=True):
-    return load_from_folder_and_sort("/Filter/", sort)
+    return load_from_folder_and_sort("/filter/", sort)
 
 def load_mask(sort=True):
-    return load_from_folder_and_sort("/Phases/Masks/", sort)
+    return load_from_folder_and_sort("/phases/masks/", sort)

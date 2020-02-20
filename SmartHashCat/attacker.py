@@ -1,8 +1,8 @@
 import os
-from Phases.Phase1 import Phase1
-from Phases.PhaseMask import PhaseMask
-import DynamicLoader
-import Misc
+from phases.phase1 import Phase1
+from phases.phase_mask import PhaseMask
+import dynamic_loader
+import misc
 
 
 class SmartHCAttacker:
@@ -28,9 +28,9 @@ class SmartHCAttacker:
         self.modifier_list = "/usr/share/SmartHashCat/lists/modifier_list.txt"
 
     def run_with_input(self):
-        Misc.write_text_to_file("", self.smart_file, False)
-        self.filters = DynamicLoader.load_filter()
-        self.inputs = DynamicLoader.load_input()
+        misc.write_text_to_file("", self.smart_file, False)
+        self.filters = dynamic_loader.load_filter()
+        self.inputs = dynamic_loader.load_input()
         for input_name in self.inputs:
             module = self.inputs[input_name]
             i = module.Input(self, self.filters)

@@ -1,6 +1,6 @@
-import CommandRunner
-from Filter.FilterAbstract import FilterAbstract
-import Misc
+import command_runner
+from filter.filter_abstract import FilterAbstract
+import misc
 
 
 class Filter(FilterAbstract):
@@ -13,7 +13,7 @@ class Filter(FilterAbstract):
         return "tmp/unique_out.txt"
 
     def run_child(self, filter_transit_file):
-        Misc.write_text_to_file("", self.filter_unique, False)
+        misc.write_text_to_file("", self.filter_unique, False)
         for l1 in open(filter_transit_file):
             count = 0
             for l2 in open(self.filter_unique):

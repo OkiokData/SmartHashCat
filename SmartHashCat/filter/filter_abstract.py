@@ -1,4 +1,4 @@
-import CommandRunner
+import command_runner
 
 
 class FilterAbstract:
@@ -11,7 +11,7 @@ class FilterAbstract:
 
     def cleanup_after_use(self):
         if self.need_to_clean_after_use and self.get_new_tempfile_name():
-            CommandRunner.run_command("rm " + self.get_new_tempfile_name(), silent=True)
+            command_runner.run_command("rm " + self.get_new_tempfile_name(), silent=True)
 
     def run_child(self, filter_transit_file):
         raise NotImplementedError("Not yet implemented!")

@@ -1,5 +1,5 @@
 import datetime
-import CommandRunner
+import command_runner
 
 
 def print_date_time():
@@ -10,10 +10,10 @@ def return_formated_date_time():
 
 def send_content_to_file(command, content, file_out, append=True):
     if not append:
-        CommandRunner.run_command(command + " " + content + " > " +
+        command_runner.run_command(command + " " + content + " > " +
                                     file_out, silent=True)
     else:
-        CommandRunner.run_command(command + " " + content + " >> " +
+        command_runner.run_command(command + " " + content + " >> " +
                                     file_out, silent=True)
 
 def copy_file_content_to_other_file(file_in, file_out, append=True):

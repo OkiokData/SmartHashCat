@@ -13,10 +13,10 @@
     https://github.com/OkiokData/SmartHashCat/
 
 '''
-import Attacker
+from attacker import SmartHCAttacker
 import argparse
 from argparse import RawTextHelpFormatter
-import CommandRunner
+import command_runner
 import os
 import string
 import random
@@ -143,7 +143,7 @@ def parse_args():
 
 
 def print_hashcat_help_without_arguments(hashcat_path):
-    help_text = CommandRunner.run_command(
+    help_text = command_runner.run_command(
         hashcat_path + " -h", silent=True, return_value=True)
     if not help_text:
         print("An error occured while getting hash modes. Please check your "
@@ -170,24 +170,24 @@ def main():
 
     if args.clear and args.clear > 0:
         print("Clearing all unnecessary files!")
-        CommandRunner.run_command("rm -R tmp/ > /dev/null", silent=True)
-        CommandRunner.run_command("rm -R outputs/ > /dev/null", silent=True)
-        CommandRunner.run_command(
+        command_runner.run_command("rm -R tmp/ > /dev/null", silent=True)
+        command_runner.run_command("rm -R outputs/ > /dev/null", silent=True)
+        command_runner.run_command(
             "rm -R $HOME/.hashcat > /dev/null", silent=True)
-        CommandRunner.run_command("rmdir hashcat* > /dev/null", silent=True)
-        CommandRunner.run_command("rm hashcat.* > /dev/null", silent=True)
-        CommandRunner.run_command("rmdir hashcat* > /dev/null", silent=True)
-        CommandRunner.run_command("rm hashcat.* > /dev/null", silent=True)
-        CommandRunner.run_command("rm *.pyc > /dev/null", silent=True)
-        CommandRunner.run_command(
+        command_runner.run_command("rmdir hashcat* > /dev/null", silent=True)
+        command_runner.run_command("rm hashcat.* > /dev/null", silent=True)
+        command_runner.run_command("rmdir hashcat* > /dev/null", silent=True)
+        command_runner.run_command("rm hashcat.* > /dev/null", silent=True)
+        command_runner.run_command("rm *.pyc > /dev/null", silent=True)
+        command_runner.run_command(
             "rm custom_list.txt > /dev/null", silent=True)
-        CommandRunner.run_command("rm -R __pycache__ > /dev/null", silent=True)
+        command_runner.run_command("rm -R __pycache__ > /dev/null", silent=True)
         print('Done!')
         exit(0)
 
     if args.test and args.test > 0:
-        from Tests import RunTests
-        result = RunTests.run((args.force and args.force > 0))
+        from tests import run_tests
+        result = run_tests.run((args.force and args.force > 0))
         print('Done!')
         exit(0)
 
@@ -197,23 +197,23 @@ def main():
 
     if args.session:
         print("Restoring from session " + args.session)
-        CommandRunner.run_command(
+        command_runner.run_command(
             args.hashcat_path + " --session " + args.session + " --restore",
             interuptable=True)
-        phase = CommandRunner.run_command('cat $HOME/.hashcat/sessions/' +
+        phase = command_runner.run_command('cat $HOME/.hashcat/sessions/' +
                                           args.session + '.phase',
                                           interuptable=False,
                                           return_value=True, silent=True)
         args.phase = int(phase)
 
-    attacker = Attacker.SmartHCAttacker()
+    attacker = SmartHCAttacker()
 
     attacker.session = "--session " + get_random_token(8)
 
     if not os.path.exists('tmp'):
-        CommandRunner.run_command("mkdir tmp", silent=True)
+        command_runner.run_command("mkdir tmp", silent=True)
     if not os.path.exists('outputs'):
-        CommandRunner.run_command("mkdir outputs", silent=True)
+        command_runner.run_command("mkdir outputs", silent=True)
 
     if args.workload_profile < 0 or args.workload_profile > 4:
         print("The workload profile can only be 1 <= w <= 4")

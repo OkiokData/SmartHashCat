@@ -1,5 +1,5 @@
-import CommandRunner
-import Misc
+import command_runner
+import misc
 
 
 class Phase:
@@ -16,19 +16,19 @@ class Phase:
         self.hashcat_path = "/usr/bin/hashcat"
 
     def run(self):
-        Misc.print_date_time()
+        misc.print_date_time()
         self.run_child()
-        Misc.print_date_time()
+        misc.print_date_time()
 
     def run_child(self):
         raise NotImplementedError("Not yet implemented!")
 
     def log_actual_phase_in_output_file(self, phase):
-        CommandRunner.run_command('echo ' + str(phase) +
+        command_runner.run_command('echo ' + str(phase) +
                                   ' > $HOME/.hashcat/sessions/' +
                                   self.session.replace('--session ', '') +
                                   '.phase', silent=True)
-        CommandRunner.run_command(
+        command_runner.run_command(
             "echo Phase " + str(phase) + " starting " +
-            Misc.return_formated_date_time() +
+            misc.return_formated_date_time() +
             " >> " + self.final_output_file, silent=True)

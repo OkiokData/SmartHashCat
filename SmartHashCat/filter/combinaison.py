@@ -1,6 +1,6 @@
-import CommandRunner
-from Filter.FilterAbstract import FilterAbstract
-import Misc
+import command_runner
+from filter.filter_abstract import FilterAbstract
+import misc
 import sys
 
 
@@ -30,7 +30,7 @@ class Filter(FilterAbstract):
             yield l.strip().lower()
 
     def run_child(self, filter_transit_file):
-        Misc.write_text_to_file("", self.combinaison_file, False)
+        misc.write_text_to_file("", self.combinaison_file, False)
         lines_1_count = 0
         lines_2_count = 0
         lines_3_count = 0
@@ -45,7 +45,7 @@ class Filter(FilterAbstract):
             lines_3_count + 2 * lines_2_count * lines_3_count \
             + 6 * lines_1_count * lines_2_count * lines_3_count
         count = 0
-        Misc.print_date_time()
+        misc.print_date_time()
         print("Starting combinations")
         sys.stdout.write("{} / {}\r".format(count, total))
         sys.stdout.flush()

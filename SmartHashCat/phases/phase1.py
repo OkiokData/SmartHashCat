@@ -1,5 +1,5 @@
-from Phases.Phase import Phase
-import CommandRunner
+from phases.phase import Phase
+import command_runner
 
 
 class Phase1(Phase):
@@ -23,7 +23,7 @@ class Phase1(Phase):
         self.files_to_run_rules_on = [self.smart_file, self.rock_you_file]
 
     def run_hashcat_with_rule_and_source_file(self, rule, source_file):
-        CommandRunner.run_command(self.hashcat_path + " -m " +
+        command_runner.run_command(self.hashcat_path + " -m " +
                                   self.hashcat_hash_option + " -w " +
                                   str(self.workload_profile) + " " +
                                   self.session + " " + self.hashes_file +
@@ -49,4 +49,4 @@ class Phase1(Phase):
             self.run_hashcat_with_rule(rule)
 
         if self.show_when_done:
-            CommandRunner.run_command("cat " + self.final_output_file)
+            command_runner.run_command("cat " + self.final_output_file)

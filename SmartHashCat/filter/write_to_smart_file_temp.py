@@ -1,6 +1,6 @@
-import CommandRunner
-from Filter.FilterAbstract import FilterAbstract
-import Misc
+import command_runner
+from filter.filter_abstract import FilterAbstract
+import misc
 
 
 class Filter(FilterAbstract):
@@ -15,10 +15,10 @@ class Filter(FilterAbstract):
 
     def run_child(self, filter_transit_file):
         if self.new_run:
-            Misc.copy_file_content_to_other_file(
+            misc.copy_file_content_to_other_file(
                 filter_transit_file, self.smart_file_temp, append=False)
             self.new_run = False
         else:
-            Misc.copy_file_content_to_other_file(
+            misc.copy_file_content_to_other_file(
                 filter_transit_file, self.smart_file_temp, append=True)
         return self.smart_file_temp
