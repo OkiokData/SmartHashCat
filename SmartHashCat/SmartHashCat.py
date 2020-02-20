@@ -35,10 +35,12 @@ def get_usage():
     mask attacks:\n\t\
     smarthashcat -p 1 -f hashes.txt'''
 
+
 def get_description():
     return 'Smart HashCat cracker. Dictio are in '\
-            '/usr/share/SmartHashCat/dict. Lists are in '\
-            '/usr/share/SmartHashCat/lists'
+           '/usr/share/SmartHashCat/dict. Lists are in '\
+           '/usr/share/SmartHashCat/lists'
+
 
 def get_phase_help():
     return '''The attack phase to proceed with.
@@ -55,6 +57,7 @@ Available options:
 
 '''
 
+
 def get_workload_profile_help():
     return '''Enable a specific workload profile, see pool below
 
@@ -68,6 +71,7 @@ def get_workload_profile_help():
   4 | Nightmare   | 480 ms  | Insane            | Headless
 
 '''
+
 
 def parse_args():
     usage = get_usage()
@@ -135,6 +139,7 @@ def parse_args():
     args = parser.parse_args()
     return args
 
+
 def print_hashcat_help_without_arguments(hashcat_path):
     help_text = CommandRunner.run_command(
         hashcat_path + " -h", silent=True, return_value=True)
@@ -146,14 +151,17 @@ def print_hashcat_help_without_arguments(hashcat_path):
         print(delimiter + (help_text.split(delimiter)
                            [1]).split('- [ Outfile Formats ] -')[0])
 
+
 def get_random_token(length):
     alphabet = string.ascii_lowercase + string.digits
     return ''.join(random.choice(alphabet) for i in range(length))
+
 
 def print_error_and_usage_then_exit(error):
     print(get_usage())
     print(error)
     exit(1)
+
 
 def main():
     args = parse_args()
@@ -221,7 +229,7 @@ def main():
         attacker.hashcat_hash_option = hash_type
         print("Using default hash type NetNTLMv2 (-m {})".format(
             hash_type))
-        
+
     if args.show:
         attacker.show_when_done = args.show > 0
 
@@ -232,13 +240,15 @@ def main():
         attacker.custom_list = args.custom_list
 
     if not args.hash_file:
-        print_error_and_usage_then_exit("Hash file path (-f) needed for phase 1 to 6!")
+        print_error_and_usage_then_exit(
+            "Hash file path (-f) needed for phase 1 to 6!")
     else:
         attacker.hashes_file = args.hash_file
 
     if args.phase <= 0:
         if not args.company_name:
-            print_error_and_usage_then_exit("Company name (-n) needed for phase 0!")
+            print_error_and_usage_then_exit(
+                "Company name (-n) needed for phase 0!")
         attacker.phase_zero()
 
     if args.phase <= 1:

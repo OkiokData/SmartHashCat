@@ -1,7 +1,8 @@
 import os
-from Phases.Phase0 import Phase0
 from Phases.Phase1 import Phase1
 from Phases.PhaseMask import PhaseMask
+import DynamicLoader
+import Misc
 
 
 class SmartHCAttacker:
@@ -19,10 +20,31 @@ class SmartHCAttacker:
 
         self.custom_list = ""
         self.smart_file = "tmp/SmartHCDict.txt"
-        self.rock_you_file = "/usr/share/wordlists/rockyou.txt"
+        self.rock_you_file = "/usr/share/SmartHashCat/lists/rockyou.txt"
         self.final_output_file = "outputs/final_output.txt"
 
-    def phase_zero(self):
+        self.user_list = "/usr/share/SmartHashCat/lists/user_list.txt"
+        self.most_common_pass = "/usr/share/SmartHashCat/lists/most_common_pass.txt"
+        self.modifier_list = "/usr/share/SmartHashCat/lists/modifier_list.txt"
+
+    def run_with_input(self):
+        Misc.write_text_to_file("", self.smart_file, False)
+        self.filters = DynamicLoader.load_filter()
+        self.inputs = DynamicLoader.load_input()
+        for input_name in self.inputs:
+            module = self.inputs[input_name]
+            i = module.Input(self, self.filters)
+            print("Runnin input and filters for " + i.name)
+            if i.run_then_need_filters():
+                for filter_module in i.filters:
+                    f = filter_module.Filter(self)
+                    i.filter_transit_file = f.run(i.filter_transit_file)
+                for filter_module in i.filters:
+                    f = filter_module.Filter(self)
+                    f.cleanup_after_use()
+            i.cleanup_after_use()
+
+    def check_rockyou(self):
         is_rockyou_exists = os.path.exists(self.rock_you_file)
 
         if not is_rockyou_exists:
@@ -30,18 +52,19 @@ class SmartHCAttacker:
                   " was not found! Maybe it is zipped?")
             exit(1)
 
-        p0 = Phase0(self.hashes_file, self.custom_list, self.company_name,
-                    self.url, self.cewl_depth,
-                    self.smart_file, self.session, self.final_output_file,
-                    self.show_when_done, self.hashcat_hash_option,
-                    self.is_add_force_flag)
-        p0.run()
-
-    def attack_dictio(self):
+    def check_smartfile(self):
         if not os.path.exists(self.smart_file):
             print("{} not present. Run Phase 0 to generate one or move on to "
                   "phase 2!".format(self.smart_file))
             exit(1)
+
+    def phase_zero(self):
+        self.check_rockyou()
+        self.run_with_input()
+
+    def attack_dictio(self):
+        self.check_rockyou()
+        self.check_smartfile()
 
         p1 = Phase1(self.hashes_file, self.workload_profile,
                     self.rock_you_file, self.smart_file, self.session,

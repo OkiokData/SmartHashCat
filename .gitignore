@@ -5,3 +5,7 @@ __pycache__/
 # Smarthashcat Temp Files
 outputs/
 tmp/
+
+# VSCode files
+.vscode/
+

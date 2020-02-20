@@ -3,6 +3,7 @@ import CommandRunner
 import imp
 import os
 import fnmatch
+import DynamicLoader
 
 
 class PhaseMask(Phase):
@@ -30,27 +31,7 @@ class PhaseMask(Phase):
             6: "desesperate"
         }
 
-        root_path = os.getcwd() + "/Phases/Masks/"
-        pattern = '*.py'
-
-        not_sorted_mask_list = {}
-
-        for root, dirs, files in os.walk(root_path):
-            for filename in fnmatch.filter(files, pattern):
-                file_path = os.path.join(root, filename)
-
-                # don't load up any of the templates
-                if fnmatch.fnmatch(filename, '*template.py'):
-                    continue
-
-                # extract just the mask name from the full path
-                mask_name = file_path.split(root_path)[-1][0:-3]
-
-                not_sorted_mask_list[mask_name] = imp.load_source(
-                    mask_name, file_path)
-
-        for key in sorted(not_sorted_mask_list):
-            self.masks_list[key] = not_sorted_mask_list[key]
+        self.masks_list = DynamicLoader.load_mask()
 
     def launch_hashcat(self, min_length, max_length, mask_start, mask_middle,
                        mask_end):

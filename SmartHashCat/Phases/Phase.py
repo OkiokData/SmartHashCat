@@ -1,4 +1,5 @@
 import CommandRunner
+import Misc
 
 
 class Phase:
@@ -15,9 +16,9 @@ class Phase:
         self.hashcat_path = "/usr/bin/hashcat"
 
     def run(self):
-        self.print_date_time()
+        Misc.print_date_time()
         self.run_child()
-        self.print_date_time()
+        Misc.print_date_time()
 
     def run_child(self):
         raise NotImplementedError("Not yet implemented!")
@@ -29,26 +30,5 @@ class Phase:
                                   '.phase', silent=True)
         CommandRunner.run_command(
             "echo Phase " + str(phase) + " starting " +
-            self.return_formated_date_time() +
+            Misc.return_formated_date_time() +
             " >> " + self.final_output_file, silent=True)
-
-    def send_content_to_file(self, command, content, file_out, append=True):
-        if append:
-            CommandRunner.run_command(command + " " + content + " > " +
-                                      file_out, silent=True)
-        else:
-            CommandRunner.run_command(command + " " + content + " >> " +
-                                      file_out, silent=True)
-
-    def copy_file_content_to_other_file(self, file_in, file_out, append=True):
-        self.send_content_to_file("cat", file_in, file_out, append)
-
-    def write_text_to_file(self, text, file_out, append=True):
-        self.send_content_to_file("echo", text, file_out, append)
-
-    def print_date_time(self):
-        print(self.return_formated_date_time())
-
-    def return_formated_date_time(self):
-        import datetime
-        return "Time: " + str(datetime.datetime.now())
