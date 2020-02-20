@@ -136,6 +136,8 @@ def parse_args():
     parser.add_argument("-w", "--workload_profile", action="store", type=int,
                         default=3,
                         help=get_workload_profile_help())
+    parser.add_argument('--test', action='count', default=0, required=False,
+                        help='Use this option to run the standardized 10 min test.')
     args = parser.parse_args()
     return args
 
@@ -180,6 +182,12 @@ def main():
         CommandRunner.run_command(
             "rm custom_list.txt > /dev/null", silent=True)
         CommandRunner.run_command("rm -R __pycache__ > /dev/null", silent=True)
+        print('Done!')
+        exit(0)
+
+    if args.test and args.test > 0:
+        from Tests import RunTests
+        result = RunTests.run((args.force and args.force > 0))
         print('Done!')
         exit(0)
 

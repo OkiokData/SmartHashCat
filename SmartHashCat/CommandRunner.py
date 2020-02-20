@@ -1,5 +1,7 @@
 import subprocess
 from threading import Timer
+import os
+import signal
 
 
 def run_command(command, silent=False, return_value=False, time_out=None,
@@ -28,6 +30,7 @@ def run_command(command, silent=False, return_value=False, time_out=None,
         for line in iter(p.stdout.readline, b''):
             if time_out and not timer.is_alive():
                 timeout = True
+                os.killpg(os.getpgid(p.pid), signal.SIGTERM)
                 break
 
             out += line.rstrip().decode() + "\n"
