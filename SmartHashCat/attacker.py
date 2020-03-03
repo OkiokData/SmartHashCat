@@ -20,6 +20,7 @@ class SmartHCAttacker:
 
         self.custom_list = ""
         self.smart_file = "tmp/SmartHCDict.txt"
+        self.smart_rule = "tmp/SmartHC.rule"
         self.rock_you_file = "/usr/share/SmartHashCat/lists/rockyou.txt"
         self.final_output_file = "outputs/final_output.txt"
 
@@ -33,16 +34,17 @@ class SmartHCAttacker:
         self.inputs = dynamic_loader.load_input()
         for input_name in self.inputs:
             module = self.inputs[input_name]
-            i = module.Input(self, self.filters)
-            print("Runnin input and filters for " + i.name)
-            if i.run_then_need_filters():
+            i = module.SHCInput(self, self.filters)
+            print("Runnin input and filters for " + input_name)
+            i.run()
+            if i.need_filters():
+                previous = i
                 for filter_module in i.filters:
-                    f = filter_module.Filter(self)
-                    i.filter_transit_file = f.run(i.filter_transit_file)
-                for filter_module in i.filters:
-                    f = filter_module.Filter(self)
-                    f.cleanup_after_use()
-            i.cleanup_after_use()
+                    f = filter_module.Filter(self, previous)
+                    previous = f
+                for l in previous.get_results():
+                    pass
+                
 
     def check_rockyou(self):
         is_rockyou_exists = os.path.exists(self.rock_you_file)
@@ -67,13 +69,17 @@ class SmartHCAttacker:
         self.check_smartfile()
 
         p1 = Phase1(self.hashes_file, self.workload_profile,
-                    self.rock_you_file, self.smart_file, self.session,
+                    self.rock_you_file, self.smart_file, self.smart_rule, self.session,
                     self.final_output_file, self.show_when_done,
                     self.hashcat_hash_option, self.is_add_force_flag)
+        
+        if self.custom_list:
+            p1.files_to_run_rules_on.append(self.custom_list)
+
         p1.run()
 
     def attack_mask(self, phase_selection=2):
-        pm = PhaseMask(self.hashes_file, phase_selection, self.smart_file,
+        pm = PhaseMask(self.hashes_file, phase_selection, self.smart_file, self.smart_rule,
                        self.session, self.final_output_file,
                        self.show_when_done, self.hashcat_hash_option,
                        self.is_add_force_flag)

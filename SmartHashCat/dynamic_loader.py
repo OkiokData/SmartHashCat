@@ -19,7 +19,7 @@ def load_from_folder(path_relative_to_shc_root):
             file_path = os.path.join(root, filename)
 
             # don't load up any of the templates
-            if fnmatch.fnmatch(filename, '*template.py') or fnmatch.fnmatch(filename, '*Abstract.py') or fnmatch.fnmatch(filename, '__init__.py'):
+            if fnmatch.fnmatch(filename, '*template.py') or fnmatch.fnmatch(filename, '*abstract.py') or fnmatch.fnmatch(filename, '__init__.py'):
                 continue
 
             # extract just the item name from the full path
@@ -40,10 +40,10 @@ def load_from_folder_and_sort(folder, sort=True):
         return not_sorted_input_list
 
 def load_input(sort=True):
-    return load_from_folder_and_sort("/input/", sort)
+    return load_from_folder_and_sort("/shc_input/", sort)
 
 def load_filter(sort=True):
-    return load_from_folder_and_sort("/filter/", sort)
+    return load_from_folder_and_sort("/shc_filter/", sort)
 
 def load_mask(sort=True):
     return load_from_folder_and_sort("/phases/masks/", sort)

@@ -4,12 +4,13 @@ import misc
 
 class Phase:
 
-    def __init__(self, hashes_file, session, final_output_file, smart_file,
+    def __init__(self, hashes_file, session, final_output_file, smart_file, smart_rule,
                  show_when_done, hashcat_hash_option, is_add_force_flag):
         self.hashes_file = hashes_file
         self.session = session
         self.final_output_file = final_output_file
         self.smart_file = smart_file
+        self.smart_rule = smart_rule
         self.show_when_done = show_when_done
         self.hashcat_hash_option = hashcat_hash_option
         self.is_add_force_flag = is_add_force_flag
