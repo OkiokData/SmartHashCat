@@ -9,8 +9,8 @@ class SHCInput(SHCInputAbstract):
             filters['filter_strip_and_lower'],
             filters['filter_write_to_smart_file']
         ]
-        self.custom_dict_en = "/usr/share/SmartHashCat/dict/1k_words_en.txt"
-        self.custom_dict_fr = "/usr/share/SmartHashCat/dict/1k_words_fr.txt"
+        self.custom_dict_en = "/usr/share/SmartHashCat/dict/words_en.txt"
+        self.custom_dict_fr = "/usr/share/SmartHashCat/dict/words_fr.txt"
     
     def run_child(self):
         return
