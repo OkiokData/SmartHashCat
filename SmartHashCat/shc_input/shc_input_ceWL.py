@@ -17,6 +17,9 @@ class SHCInput(SHCInputAbstract):
         self.cewl_file = "tmp/cewl_out.txt"
     
     def run_child(self):
+        if not self.url:
+            print('No URL was specified. Skipping cewl...')
+            return
         print('Starting cewl. You can force stop anytime with '
                   '"CTRL+C"')
         command_runner.run_command("cewl -d " + self.cewl_depth +
@@ -26,6 +29,8 @@ class SHCInput(SHCInputAbstract):
         misc.print_date_time()
     
     def get_results(self):
+        if not self.url:
+            return []
         with open(self.cewl_file, 'r') as f:
             for line in f:
                 yield line
