@@ -16,7 +16,6 @@ cd ..
 rm -rf ./hashcat-$version
 rm -f "v$version.tar.gz"
 
-
 echo '[*] Downloading HashCat rule OneRuleToRuleThemAll'
 wget https://raw.githubusercontent.com/NotSoSecure/password_cracking_rules/master/OneRuleToRuleThemAll.rule
 mv -v OneRuleToRuleThemAll.rule /usr/share/hashcat/rules/
