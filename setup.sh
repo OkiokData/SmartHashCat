@@ -1,7 +1,21 @@
 #!/bin/bash
 
 echo '[*] Installing required packages'
-apt install -y hashcat python3 cewl
+apt install -y python3 cewl
+
+echo '[*] Downloading and installing HashCat'
+version=$(curl --silent "https://api.github.com/repos/hashcat/hashcat/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')
+
+curl -sOL "https://github.com/hashcat/hashcat/archive/v$version.tar.gz"
+tar -xvzf "v$version.tar.gz"
+cd hashcat-$version
+make
+make install
+
+cd ..
+rm -rf ./hashcat-$version
+rm -f "v$version.tar.gz"
+
 
 echo '[*] Downloading HashCat rule OneRuleToRuleThemAll'
 wget https://raw.githubusercontent.com/NotSoSecure/password_cracking_rules/master/OneRuleToRuleThemAll.rule

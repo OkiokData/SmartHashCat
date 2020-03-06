@@ -14,7 +14,7 @@ class Phase:
         self.show_when_done = show_when_done
         self.hashcat_hash_option = hashcat_hash_option
         self.is_add_force_flag = is_add_force_flag
-        self.hashcat_path = "/usr/bin/hashcat"
+        self.hashcat_path = "/usr/local/bin/hashcat"
 
     def run(self):
         misc.print_date_time()
