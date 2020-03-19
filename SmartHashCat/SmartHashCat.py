@@ -94,6 +94,9 @@ def parse_args():
     parser.add_argument('-p', '--phase',
                         action='store', type=int, required=False,
                         help=get_phase_help(), default=-1)
+    parser.add_argument('-pa', '--phase_array', nargs='*',
+                        action='store', type=int, required=False,
+                        help=get_phase_help(), default=-1)
     parser.add_argument('-o', '--smart_dict',
                         action='store', type=str, required=False,
                         help='The path to the dictionary to use for the phase '
@@ -102,7 +105,7 @@ def parse_args():
     parser.add_argument('--custom_list',
                         action='store', type=str, required=False,
                         help='The path to the custom list to use for the '
-                             'phase 0.',
+                             'phase 0.', 
                         default="")
     parser.add_argument('-d', '--cewl_depth',
                         action='store', type=str, required=False,
@@ -210,6 +213,8 @@ def main():
 
     attacker.session = "--session " + get_random_token(8)
 
+    attacker.hashcat_path = args.hashcat_path
+
     if not os.path.exists('tmp'):
         command_runner.run_command("mkdir tmp", silent=True)
     if not os.path.exists('outputs'):
@@ -253,17 +258,17 @@ def main():
     else:
         attacker.hashes_file = args.hash_file
 
-    if args.phase <= 0:
+    if args.phase <= 0 and (len(args.phase_array) == 0 or 0 in args.phase_array):
         if not args.company_name:
             print_error_and_usage_then_exit(
                 "Company name (-n) needed for phase 0!")
         attacker.phase_zero()
 
-    if args.phase <= 1:
+    if args.phase <= 1 and (len(args.phase_array) == 0 or 1 in args.phase_array):
         attacker.attack_dictio()
 
     for i in range(2, 7):
-        if(args.phase <= i):
+        if(args.phase <= i  and (len(args.phase_array) == 0 or i in args.phase_array)):
             attacker.attack_mask(phase_selection=i)
 
 

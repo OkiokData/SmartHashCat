@@ -10,11 +10,11 @@ class PhaseMask(Phase):
 
     def __init__(self, hashes_file, phase_selection, smart_file, smart_rule, session,
                  final_output_file, show_when_done, hashcat_hash_option,
-                 is_add_force_flag):
+                 is_add_force_flag, hashcat_path):
         super(PhaseMask, self).__init__(hashes_file, session,
                                         final_output_file, smart_file, smart_rule,
                                         show_when_done, hashcat_hash_option,
-                                        is_add_force_flag)
+                                        is_add_force_flag, hashcat_path)
 
         self.phase_selection = phase_selection
 

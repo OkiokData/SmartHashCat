@@ -17,6 +17,7 @@ class SmartHCAttacker:
         self.is_add_force_flag = False
         self.workload_profile = 3
         self.hashes_file = ''
+        self.hashcat_path = '/usr/bin/hashcat'
 
         self.custom_list = ""
         self.smart_file = "tmp/SmartHCDict.txt"
@@ -71,7 +72,7 @@ class SmartHCAttacker:
         p1 = Phase1(self.hashes_file, self.workload_profile,
                     self.rock_you_file, self.smart_file, self.smart_rule, self.session,
                     self.final_output_file, self.show_when_done,
-                    self.hashcat_hash_option, self.is_add_force_flag)
+                    self.hashcat_hash_option, self.is_add_force_flag, self.hashcat_path)
         
         if self.custom_list:
             p1.files_to_run_rules_on.append(self.custom_list)
@@ -82,5 +83,5 @@ class SmartHCAttacker:
         pm = PhaseMask(self.hashes_file, phase_selection, self.smart_file, self.smart_rule,
                        self.session, self.final_output_file,
                        self.show_when_done, self.hashcat_hash_option,
-                       self.is_add_force_flag)
+                       self.is_add_force_flag, self.hashcat_path)
         pm.run()

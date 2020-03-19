@@ -5,7 +5,7 @@ import misc
 class Phase:
 
     def __init__(self, hashes_file, session, final_output_file, smart_file, smart_rule,
-                 show_when_done, hashcat_hash_option, is_add_force_flag):
+                 show_when_done, hashcat_hash_option, is_add_force_flag, hashcat_path):
         self.hashes_file = hashes_file
         self.session = session
         self.final_output_file = final_output_file
@@ -14,7 +14,7 @@ class Phase:
         self.show_when_done = show_when_done
         self.hashcat_hash_option = hashcat_hash_option
         self.is_add_force_flag = is_add_force_flag
-        self.hashcat_path = "/usr/local/bin/hashcat"
+        self.hashcat_path = hashcat_path # "/usr/local/bin/hashcat"
 
     def run(self):
         misc.print_date_time()
