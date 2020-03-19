@@ -51,6 +51,12 @@ class Phase1(Phase):
 
         for rule in self.rules_to_run:
             self.run_hashcat_with_rule(rule)
+        
+        if os.path.exists(self.smart_rule):
+            for rule in self.rules_to_run:
+                if not rule == self.smart_rule:
+                    self.run_hashcat_with_rule(rule + " -r " + self.smart_rule)
+                    self.run_hashcat_with_rule(self.smart_rule + " -r " + rule)
 
         if self.show_when_done:
             command_runner.run_command("cat " + self.final_output_file)
