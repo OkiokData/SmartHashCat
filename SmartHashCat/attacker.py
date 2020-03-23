@@ -18,6 +18,7 @@ class SmartHCAttacker:
         self.workload_profile = 3
         self.hashes_file = ''
         self.hashcat_path = '/usr/bin/hashcat'
+        self.with_phase_zero = False
 
         self.custom_list = ""
         self.smart_file = "tmp/SmartHCDict.txt"
@@ -27,7 +28,7 @@ class SmartHCAttacker:
 
         self.user_list = "/usr/share/SmartHashCat/lists/user_list.txt"
         self.most_common_pass = "/usr/share/SmartHashCat/lists/most_common_pass.txt"
-        self.modifier_list = "/usr/share/SmartHashCat/lists/modifier_list.txt"                
+        self.modifier_list = "/usr/share/SmartHashCat/lists/modifier_list.txt"
 
     def check_rockyou(self):
         is_rockyou_exists = os.path.exists(self.rock_you_file)
@@ -50,7 +51,8 @@ class SmartHCAttacker:
         p1 = Phase1(self.hashes_file, self.workload_profile,
                     self.rock_you_file, self.smart_file, self.smart_rule, self.session,
                     self.final_output_file, self.show_when_done,
-                    self.hashcat_hash_option, self.is_add_force_flag, self.hashcat_path)
+                    self.hashcat_hash_option, self.is_add_force_flag, self.hashcat_path, self.with_phase_zero,
+                    self)
         
         if self.custom_list:
             p1.files_to_run_rules_on.append(self.custom_list)

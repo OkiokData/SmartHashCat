@@ -5,7 +5,7 @@ class Filter(FilterAbstract):
 
     def __init__(self, attacker, previous_input):
         super(Filter, self).__init__(previous_input)
-        self.smart_file = attacker.smart_file
+        self.smart_file = "" # attacker.smart_file
         self.has_been_written = False
 
     def get_results(self):

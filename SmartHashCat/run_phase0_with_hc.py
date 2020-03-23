@@ -7,14 +7,18 @@ import sys
 class Phase0Wrapper:
 
     def __init__(self, argv):
-        self.smart_file = argv[0]
-        self.final_output_file = argv[1]
+        self.final_output_file = argv[0] # outputs/final_output.txt
+        self.cewl_depth = argv[1] # 1
+        self.url = argv[2] # https://www.exemple.com
+        self.company_name = argv[3] # exemple
+        self.user_list = argv[4] # "/usr/share/SmartHashCat/lists/user_list.txt"
+        self.most_common_pass = argv[5] # "/usr/share/SmartHashCat/lists/most_common_pass.txt"
+        self.modifier_list = argv[6] # "/usr/share/SmartHashCat/lists/modifier_list.txt"
 
     def phase_zero(self):
         self.run_with_input()
 
     def run_with_input(self):
-        misc.write_text_to_file("", self.smart_file, False)
         self.filters = dynamic_loader.load_filter()
         self.inputs = dynamic_loader.load_input()
         for input_name in self.inputs:
@@ -35,3 +39,4 @@ class Phase0Wrapper:
 
 if __name__ == "__main__":
     p0 = Phase0Wrapper(sys.argv[1:])
+    p0.run_with_input()

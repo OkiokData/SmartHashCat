@@ -20,11 +20,11 @@ class SHCInput(SHCInputAbstract):
     
     def run_child(self):
         if not self.url:
-            print('No URL was specified. Skipping cewl...')
+            #print('No URL was specified. Skipping cewl...')
             misc.write_text_to_file('No URL was specified. Skipping cewl...', self.final_output_file, append=True)
             return
-        #print('Starting cewl. You can force stop anytime with '
-        #          '"CTRL+C"')
+        
+        misc.write_text_to_file('Starting cewl. You can force stop anytime with "CTRL+C"', self.final_output_file, append=True)
         if not os.path.exists(self.cewl_file):
             command_runner.run_command("cewl -d " + self.cewl_depth +
                                     " -e -v " + self.url + " -w " +

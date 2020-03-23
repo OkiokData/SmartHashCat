@@ -5,7 +5,7 @@ class Filter(FilterAbstract):
 
     def __init__(self, attacker, previous_input):
         super(Filter, self).__init__(previous_input)
-        self.smart_rule = attacker.smart_rule
+        self.smart_rule = "" # attacker.smart_rule
         self.has_been_written = False
 
     def get_results(self):

@@ -262,7 +262,7 @@ def main():
         if not args.company_name:
             print_error_and_usage_then_exit(
                 "Company name (-n) needed for phase 0!")
-        attacker.phase_zero()
+        attacker.with_phase_zero = True
 
     if args.phase <= 1 and (len(args.phase_array) == 0 or 1 in args.phase_array):
         attacker.attack_dictio()
