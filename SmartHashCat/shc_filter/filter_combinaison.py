@@ -36,6 +36,10 @@ class Filter(FilterAbstract):
                 for l3 in self.get_lines_3():
                     if not yielded_3:
                         yield f"{l3}"
+                    yield f"{l1}{l3}"
+                    yield f"{l3}{l1}"
+                    yield f"{l2}{l3}"
+                    yield f"{l3}{l2}"
                     yield f"{l1}{l2}{l3}"
                     yield f"{l1}{l3}{l2}"
                     yield f"{l2}{l1}{l3}"

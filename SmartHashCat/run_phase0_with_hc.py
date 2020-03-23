@@ -15,9 +15,6 @@ class Phase0Wrapper:
         self.most_common_pass = argv[5] # "/usr/share/SmartHashCat/lists/most_common_pass.txt"
         self.modifier_list = argv[6] # "/usr/share/SmartHashCat/lists/modifier_list.txt"
 
-    def phase_zero(self):
-        self.run_with_input()
-
     def run_with_input(self):
         self.filters = dynamic_loader.load_filter()
         self.inputs = dynamic_loader.load_input()
