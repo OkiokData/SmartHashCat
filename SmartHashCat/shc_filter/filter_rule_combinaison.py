@@ -11,7 +11,7 @@ class Filter(FilterRuleAbstract):
         self.user_list = attacker.user_list
         self.modifier_list = attacker.modifier_list
         #misc.print_date_time()
-        print("Starting combinations")
+        #print("Starting combinations")
 
     def get_lines_1(self):
         for l in self.previous_input.get_results():

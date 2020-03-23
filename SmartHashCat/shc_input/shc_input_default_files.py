@@ -3,11 +3,12 @@ from shc_input.shc_input_abstract import SHCInputAbstract
 
 class SHCInput(SHCInputAbstract):
     
-    def __init__(self, attacker, filters):
-        super(SHCInput, self).__init__()
+    def __init__(self, attacker, filters, final_output_file):
+        super(SHCInput, self).__init__(final_output_file)
         self.filters = [
             filters['filter_strip_and_lower'],
-            filters['filter_write_to_smart_file']
+            filters['filter_combinaison'],
+            #filters['filter_write_to_smart_file']
         ]
         self.user_list = attacker.user_list
         self.most_common_pass = attacker.most_common_pass

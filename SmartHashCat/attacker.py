@@ -27,28 +27,7 @@ class SmartHCAttacker:
 
         self.user_list = "/usr/share/SmartHashCat/lists/user_list.txt"
         self.most_common_pass = "/usr/share/SmartHashCat/lists/most_common_pass.txt"
-        self.modifier_list = "/usr/share/SmartHashCat/lists/modifier_list.txt"
-
-    def run_with_input(self):
-        misc.write_text_to_file("", self.smart_file, False)
-        self.filters = dynamic_loader.load_filter()
-        self.inputs = dynamic_loader.load_input()
-        for input_name in self.inputs:
-            module = self.inputs[input_name]
-            i = module.SHCInput(self, self.filters)
-            string_to_show = "Phase 0 - input and filters for " + input_name + " starting "
-            print(string_to_show)
-            misc.write_text_to_file(string_to_show +
-                misc.return_formated_date_time(), self.final_output_file, append=True)
-            i.run()
-            if i.need_filters():
-                previous = i
-                for filter_module in i.filters:
-                    f = filter_module.Filter(self, previous)
-                    previous = f
-                for l in previous.get_results():
-                    pass
-                
+        self.modifier_list = "/usr/share/SmartHashCat/lists/modifier_list.txt"                
 
     def check_rockyou(self):
         is_rockyou_exists = os.path.exists(self.rock_you_file)
@@ -63,10 +42,6 @@ class SmartHCAttacker:
             print("{} not present. Run Phase 0 to generate one or move on to "
                   "phase 2!".format(self.smart_file))
             exit(1)
-
-    def phase_zero(self):
-        self.check_rockyou()
-        self.run_with_input()
 
     def attack_dictio(self):
         self.check_rockyou()
