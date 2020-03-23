@@ -46,7 +46,7 @@ class SmartHCAttacker:
 
     def attack_dictio(self):
         self.check_rockyou()
-        self.check_smartfile()
+        #self.check_smartfile()
 
         p1 = Phase1(self.hashes_file, self.workload_profile,
                     self.rock_you_file, self.smart_file, self.smart_rule, self.session,
