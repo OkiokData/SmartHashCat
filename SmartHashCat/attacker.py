@@ -36,7 +36,10 @@ class SmartHCAttacker:
         for input_name in self.inputs:
             module = self.inputs[input_name]
             i = module.SHCInput(self, self.filters)
-            print("Runnin input and filters for " + input_name)
+            string_to_show = "Phase 0 - input and filters for " + input_name + " starting "
+            print(string_to_show)
+            misc.write_text_to_file(string_to_show +
+                misc.return_formated_date_time(), self.final_output_file, append=True)
             i.run()
             if i.need_filters():
                 previous = i
