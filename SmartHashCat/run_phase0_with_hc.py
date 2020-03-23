@@ -10,6 +10,8 @@ class Phase0Wrapper:
         self.final_output_file = argv[0] # outputs/final_output.txt
         self.cewl_depth = argv[1] # 1
         self.url = argv[2] # https://www.exemple.com
+        if argv[2] == "None":
+            self.url = None
         self.company_name = argv[3] # exemple
         self.user_list = argv[4] # "/usr/share/SmartHashCat/lists/user_list.txt"
         self.most_common_pass = argv[5] # "/usr/share/SmartHashCat/lists/most_common_pass.txt"
