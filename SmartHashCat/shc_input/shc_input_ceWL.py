@@ -30,6 +30,7 @@ class SHCInput(SHCInputAbstract):
                                     " -e -v " + self.url + " -w " +
                                     self.cewl_file + " >> /dev/null",
                                     interuptable=True, silent=True)
+        misc.write_text_to_file('Done with cewl!', self.final_output_file, append=True)
         #misc.print_date_time()
     
     def get_results(self):
