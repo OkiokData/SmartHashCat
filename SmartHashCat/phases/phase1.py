@@ -23,7 +23,7 @@ class Phase1(Phase):
                              self.hash_cat_rules_path + "OneRuleToRuleThemAll.rule"
                              ]
         
-        self.files_to_run_rules_on = [self.smart_file, self.rock_you_file]
+        self.files_to_run_rules_on = [self.rock_you_file]
 
     def run_hashcat_with_rule_and_source_file(self, rule, source_file):
         rule_to_run = ' '.join([f'-r {r}' for r in rule])
@@ -35,6 +35,19 @@ class Phase1(Phase):
                                   " -o " + self.final_output_file,
                                   interuptable=True,
                                   is_add_force_flag=self.is_add_force_flag)
+    
+    def run_hashcat_with_rule_and_pipe(self, rule):
+        rule_to_run = ' '.join([f'-r {r}' for r in rule])
+        command_runner.run_command("./run_phase0_with_hc.py " + self.smart_file + 
+                                  " " + self.final_output_file +
+                                  " | " + self.hashcat_path + " -m " +
+                                  self.hashcat_hash_option + " -w " +
+                                  str(self.workload_profile) + " " +
+                                  self.session + " " + self.hashes_file +
+                                  " " + rule_to_run +
+                                  " -o " + self.final_output_file,
+                                  interuptable=True,
+                                  is_add_force_flag=self.is_add_force_flag)
 
     def run_hashcat_with_rule(self, rule):
         print("\nStarting hashcat " + str(rule) +
@@ -42,6 +55,9 @@ class Phase1(Phase):
               "Rockyou)")
         for file_to_run_on in self.files_to_run_rules_on:
             self.run_hashcat_with_rule_and_source_file(rule, file_to_run_on)
+        
+        self.run_hashcat_with_rule_and_pipe(rule)
+        
 
     def run_child(self):
         self.log_actual_phase_in_output_file(1)
@@ -49,10 +65,7 @@ class Phase1(Phase):
         print('Starting attack!')
         
         for rule in self.rules_to_run:
-            if os.path.exists(self.smart_rule):
-                self.run_hashcat_with_rule([self.smart_rule, rule])
-            else:
-                self.run_hashcat_with_rule([rule])
+            self.run_hashcat_with_rule([rule])
 
         if self.show_when_done:
             command_runner.run_command("cat " + self.final_output_file)

@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import dynamic_loader
 import misc
 import sys
