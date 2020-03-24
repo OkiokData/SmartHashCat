@@ -18,8 +18,8 @@ class Phase0Wrapper:
         self.user_list = argv[4] # "/usr/share/SmartHashCat/lists/user_list.txt"
         self.most_common_pass = argv[5] # "/usr/share/SmartHashCat/lists/most_common_pass.txt"
         self.modifier_list = argv[6] # "/usr/share/SmartHashCat/lists/modifier_list.txt"
-        if argv[7] == "None":
-            self.url = None
+        if argv[7] == "":
+            self.custom_list = None
         else:
             self.custom_list = argv[7] # "None"
 
