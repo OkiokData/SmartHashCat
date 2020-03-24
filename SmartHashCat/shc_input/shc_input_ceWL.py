@@ -11,32 +11,28 @@ class SHCInput(SHCInputAbstract):
         self.filters = [
             filters['filter_strip_and_lower'],
             filters['filter_unique'],
-            filters['filter_combinaison'],
-            #filters['filter_write_to_smart_file']
+            filters['filter_combinaison']
         ]
-        self.cewl_depth = attacker.cewl_depth
-        self.url = attacker.url
+        self.attacker = attacker
         self.cewl_file = "tmp/cewl_out.txt"
     
     def run_child(self):
-        if not self.url:
-            #print('No URL was specified. Skipping cewl...')
+        if not self.attacker.url:
             misc.write_text_to_file('No URL was specified. Skipping cewl...', self.final_output_file, append=True)
             return
         
         misc.write_text_to_file('Starting cewl. You can force stop anytime with "CTRL+C"', self.final_output_file, append=True)
         if not os.path.exists(self.cewl_file):
-            command_runner.run_command("cewl -d " + self.cewl_depth +
-                                    " -e -v " + self.url + " -w " +
+            command_runner.run_command("cewl -d " + self.attacker.cewl_depth +
+                                    " -e -v " + self.attacker.url + " -w " +
                                     self.cewl_file + " >> /dev/null",
                                     interuptable=True, silent=True)
             misc.write_text_to_file('Done with cewl!', self.final_output_file, append=True)
         else:
             misc.write_text_to_file('Done with cewl, file exist!', self.final_output_file, append=True)
-        #misc.print_date_time()
-    
+
     def get_results(self):
-        if not self.url:
+        if not self.attacker.url:
             return []
         with open(self.cewl_file, 'r') as f:
             for line in f:

@@ -7,23 +7,14 @@ class SHCInput(SHCInputAbstract):
         super(SHCInput, self).__init__(final_output_file)
         self.filters = [
             filters['filter_strip_and_lower'],
-            filters['filter_combinaison'],
-            #filters['filter_write_to_smart_file']
+            filters['filter_combinaison']
         ]
-        self.user_list = attacker.user_list
-        self.most_common_pass = attacker.most_common_pass
-        self.modifier_list = attacker.modifier_list
+        self.attacker = attacker
     
     def run_child(self):
         return
     
     def get_results(self):
-        with open(self.user_list, 'r') as f:
-            for line in f:
-                yield line
-        with open(self.modifier_list, 'r') as f:
-            for line in f:
-                yield line
-        with open(self.most_common_pass, 'r') as f:
+        with open(self.attacker.most_common_pass, 'r') as f:
             for line in f:
                 yield line

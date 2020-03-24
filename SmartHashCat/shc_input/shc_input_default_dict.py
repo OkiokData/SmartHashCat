@@ -7,8 +7,7 @@ class SHCInput(SHCInputAbstract):
         super(SHCInput, self).__init__(final_output_file)
         self.filters = [
             filters['filter_strip_and_lower'],
-            #filters['filter_write_to_smart_file']
-            filters['filter_combinaison'],
+            filters['filter_combinaison']
         ]
         self.custom_dict_en = "/usr/share/SmartHashCat/dict/words_en.txt"
         self.custom_dict_fr = "/usr/share/SmartHashCat/dict/words_fr.txt"

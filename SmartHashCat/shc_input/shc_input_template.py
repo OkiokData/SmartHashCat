@@ -8,8 +8,7 @@ class SHCInput(SHCInputAbstract):
         self.filters = [
             filters['filter_strip_and_lower'],
             filters['filter_unique'],
-            filters['filter_combinaison'],
-            #filters['filter_write_to_smart_file']
+            filters['filter_combinaison']
         ]
     
     def run_child(self):

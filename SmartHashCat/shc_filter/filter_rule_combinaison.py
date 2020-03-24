@@ -6,21 +6,18 @@ class Filter(FilterRuleAbstract):
 
     def __init__(self, attacker, previous_input):
         super(Filter, self).__init__(previous_input)
-        self.user_list = attacker.user_list
-        self.modifier_list = attacker.modifier_list
-        #misc.print_date_time()
-        #print("Starting combinations")
+        self.attacker = attacker
 
     def get_lines_1(self):
         for l in self.previous_input.get_results():
             yield l
     
     def get_lines_2(self):
-        for l in open(self.user_list, "r"):
+        for l in open(self.attacker.user_list, "r"):
             yield l.strip().lower()
 
     def get_lines_3(self):
-        for l in open(self.modifier_list, "r"):
+        for l in open(self.attacker.modifier_list, "r"):
             yield l.strip().lower()
 
     def get_results(self):

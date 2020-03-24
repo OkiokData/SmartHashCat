@@ -7,10 +7,7 @@ class SHCInput(SHCInputAbstract):
         super(SHCInput, self).__init__(final_output_file)
         self.filters = [
             filters['filter_strip_and_lower'],
-            #filters['filter_write_to_smart_file'],
-            #filters['filter_rule_combinaison'],
-            filters['filter_combinaison'],
-            #filters['filter_write_to_smart_rule']
+            filters['filter_combinaison']
         ]
         self.company_name = attacker.company_name
     
