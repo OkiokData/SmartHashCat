@@ -1,8 +1,6 @@
 import os
 from phases.phase1 import Phase1
 from phases.phase_mask import PhaseMask
-import dynamic_loader
-import misc
 
 
 class SmartHCAttacker:
