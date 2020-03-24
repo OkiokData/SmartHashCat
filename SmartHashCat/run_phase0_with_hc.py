@@ -21,7 +21,7 @@ class Phase0Wrapper:
         if argv[7] == "":
             self.custom_list = None
         else:
-            self.custom_list = argv[7] # "None"
+            self.custom_list = argv[7] # ""
 
     def run_with_input(self):
         self.filters = dynamic_loader.load_filter()
