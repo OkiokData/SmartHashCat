@@ -38,12 +38,7 @@ class SmartHCAttacker:
 
     def attack_dictio(self):
         self.check_rockyou()
-
         p1 = Phase1(self)
-        
-        if self.custom_list:
-            p1.files_to_run_rules_on.append(self.custom_list)
-
         p1.run()
 
     def attack_mask(self, phase_selection=2):

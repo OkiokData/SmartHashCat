@@ -43,6 +43,7 @@ class Phase1(Phase):
             self.attacker.user_list,
             self.attacker.most_common_pass,
             self.attacker.modifier_list,
+            self.attacker.custom_list
             ]
         phase0_arguments = ' '.join([f"'{a}'" for a in phase0_arguments_array])
         command_runner.run_command("./run_phase0_with_hc.py " + phase0_arguments + " | " + 

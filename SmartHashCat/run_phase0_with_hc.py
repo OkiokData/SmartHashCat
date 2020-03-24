@@ -10,13 +10,18 @@ class Phase0Wrapper:
         self.final_output_file = argv[0] # outputs/final_output.txt
         self.final_output_file_progress = self.final_output_file + "-progress.txt"
         self.cewl_depth = argv[1] # 1
-        self.url = argv[2] # https://www.exemple.com or "None" to skip cewl
         if argv[2] == "None":
             self.url = None
+        else:
+            self.url = argv[2] # https://www.exemple.com or "None" to skip cewl
         self.company_name = argv[3] # exemple
         self.user_list = argv[4] # "/usr/share/SmartHashCat/lists/user_list.txt"
         self.most_common_pass = argv[5] # "/usr/share/SmartHashCat/lists/most_common_pass.txt"
         self.modifier_list = argv[6] # "/usr/share/SmartHashCat/lists/modifier_list.txt"
+        if argv[7] == "None":
+            self.url = None
+        else:
+            self.custom_list = argv[7] # "None"
 
     def run_with_input(self):
         self.filters = dynamic_loader.load_filter()
