@@ -8,8 +8,9 @@ class Phase0Wrapper:
 
     def __init__(self, argv):
         self.final_output_file = argv[0] # outputs/final_output.txt
+        self.final_output_file_progress = self.final_output_file + "-progress.txt"
         self.cewl_depth = argv[1] # 1
-        self.url = argv[2] # https://www.exemple.com
+        self.url = argv[2] # https://www.exemple.com or "None" to skip cewl
         if argv[2] == "None":
             self.url = None
         self.company_name = argv[3] # exemple
@@ -27,6 +28,8 @@ class Phase0Wrapper:
             #print(string_to_show)
             misc.write_text_to_file(string_to_show +
                 misc.return_formated_date_time(), self.final_output_file, append=True)
+            misc.write_text_to_file(string_to_show +
+                misc.return_formated_date_time(), self.final_output_file_progress, append=True)
             i.run()
             if i.need_filters():
                 previous = i

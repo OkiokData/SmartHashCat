@@ -4,17 +4,17 @@ import misc
 
 class Phase:
 
-    def __init__(self, hashes_file, session, final_output_file, smart_file, smart_rule,
-                 show_when_done, hashcat_hash_option, is_add_force_flag, hashcat_path):
-        self.hashes_file = hashes_file
-        self.session = session
-        self.final_output_file = final_output_file
-        self.smart_file = smart_file
-        self.smart_rule = smart_rule
-        self.show_when_done = show_when_done
-        self.hashcat_hash_option = hashcat_hash_option
-        self.is_add_force_flag = is_add_force_flag
-        self.hashcat_path = hashcat_path # "/usr/local/bin/hashcat"
+    def __init__(self, attacker):
+        self.attacker = attacker
+        self.hashes_file = attacker.hashes_file
+        self.session = attacker.session
+        self.final_output_file = attacker.final_output_file
+        self.smart_file = attacker.smart_file
+        self.smart_rule = attacker.smart_rule
+        self.show_when_done = attacker.show_when_done
+        self.hashcat_hash_option = attacker.hashcat_hash_option
+        self.is_add_force_flag = attacker.is_add_force_flag
+        self.hashcat_path = attacker.hashcat_path # "/usr/local/bin/hashcat"
 
     def run(self):
         misc.print_date_time()

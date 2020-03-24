@@ -5,17 +5,12 @@ import os
 
 class Phase1(Phase):
 
-    def __init__(self, hashes_file, workload_profile, rock_you_file,
-                 smart_file, smart_rule, session, final_output_file, show_when_done,
-                 hashcat_hash_option, is_add_force_flag, hashcat_path, with_phase_zero, attacker):
-        super(Phase1, self).__init__(hashes_file, session, final_output_file,
-                                     smart_file, smart_rule, show_when_done,
-                                     hashcat_hash_option, is_add_force_flag, hashcat_path)
-        self.workload_profile = workload_profile
-        self.rock_you_file = rock_you_file
-        self.is_add_force_flag = is_add_force_flag
-        self.with_phase_zero = with_phase_zero
-        self.attacker = attacker
+    def __init__(self, attacker):
+        super(Phase1, self).__init__(attacker)
+        self.workload_profile = attacker.workload_profile
+        self.rock_you_file = attacker.rock_you_file
+        self.is_add_force_flag = attacker.is_add_force_flag
+        self.with_phase_zero = attacker.with_phase_zero
         self.hash_cat_rules_path = "/usr/share/hashcat/rules/"
         self.rules_to_run = [
                              self.hash_cat_rules_path + "leetspeak.rule",
