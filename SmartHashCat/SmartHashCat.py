@@ -97,11 +97,6 @@ def parse_args():
     parser.add_argument('-pa', '--phase_array', nargs='*',
                         action='store', type=int, required=False,
                         help=get_phase_help(), default=-1)
-    parser.add_argument('-o', '--smart_dict',
-                        action='store', type=str, required=False,
-                        help='The path to the dictionary to use for the phase '
-                             '1. (default="tmp/SmartHCDict.txt")',
-                        default="tmp/SmartHCDict.txt")
     parser.add_argument('--custom_list',
                         action='store', type=str, required=False,
                         help='The path to the custom list to use for the '
@@ -245,9 +240,6 @@ def main():
 
     if args.show:
         attacker.show_when_done = args.show > 0
-
-    if args.smart_dict:
-        attacker.smart_file = args.smart_dict
 
     if args.custom_list:
         attacker.custom_list = args.custom_list

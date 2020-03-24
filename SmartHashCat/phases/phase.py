@@ -9,8 +9,6 @@ class Phase:
         self.hashes_file = attacker.hashes_file
         self.session = attacker.session
         self.final_output_file = attacker.final_output_file
-        self.smart_file = attacker.smart_file
-        self.smart_rule = attacker.smart_rule
         self.show_when_done = attacker.show_when_done
         self.hashcat_hash_option = attacker.hashcat_hash_option
         self.is_add_force_flag = attacker.is_add_force_flag

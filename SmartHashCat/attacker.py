@@ -21,8 +21,6 @@ class SmartHCAttacker:
         self.with_phase_zero = False
 
         self.custom_list = ""
-        self.smart_file = "tmp/SmartHCDict.txt"
-        self.smart_rule = "tmp/SmartHC.rule"
         self.rock_you_file = "/usr/share/SmartHashCat/lists/rockyou.txt"
         self.final_output_file = "outputs/final_output.txt"
 
