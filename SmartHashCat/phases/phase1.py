@@ -46,7 +46,8 @@ class Phase1(Phase):
             self.attacker.custom_list
             ]
         phase0_arguments = ' '.join([f"'{a}'" for a in phase0_arguments_array])
-        command_runner.run_command("./run_phase0_with_hc.py " + phase0_arguments + " | " + 
+        dir_path = os.path.realpath(os.path.dirname(os.path.realpath(__file__)) + "/../")
+        command_runner.run_command(dir_path + "/run_phase0_with_hc.py " + phase0_arguments + " | " + 
                                   self.hashcat_path + " -m " +
                                   self.hashcat_hash_option + " -w " +
                                   str(self.workload_profile) + " " +

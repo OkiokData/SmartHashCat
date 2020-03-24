@@ -9,7 +9,7 @@ def load_from_folder(path_relative_to_shc_root):
     if path_relative_to_shc_root[-1:] != "/":
         path_relative_to_shc_root = path_relative_to_shc_root + "/"
     
-    root_path = os.getcwd() + path_relative_to_shc_root
+    root_path = os.path.dirname(os.path.realpath(__file__)) + path_relative_to_shc_root
     pattern = '*.py'
 
     not_sorted_item_list = {}
