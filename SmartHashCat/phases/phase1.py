@@ -35,7 +35,9 @@ class Phase1(Phase):
                                   is_add_force_flag=self.is_add_force_flag)
 
     def run_hashcat_with_rule_and_phase0(self, rule):
-        for l in self.phase0.run_with_input_and_has_more():
+        for need_to_run in self.phase0.run_with_input_and_has_more():
+            if not need_to_run:
+                return
             command_runner.run_command(self.hashcat_path + " -m " +
                                     self.hashcat_hash_option + " -w " +
                                     str(self.workload_profile) + " " +
