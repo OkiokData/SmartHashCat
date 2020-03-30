@@ -25,9 +25,14 @@ class Filter(FilterAbstract):
         for l in open(self.attacker.modifier_list, "r"):
             yield l.strip().lower()
 
+    def write_and_display_status(self, status):
+        time = misc.return_formated_date_time()
+        text_to_display = f"Combination status: {status} {time}"
+        print(text_to_display)
+        misc.write_text_to_file(text_to_display, self.attacker.final_output_file_progress, append=True)
+
     def get_results(self):
-        misc.write_text_to_file(f"Combination status: {str(self.counter)}/{str(self.aprox_len)} " + misc.return_formated_date_time(),
-            self.attacker.final_output_file_progress, append=True)
+        self.write_and_display_status(f'{str(self.counter)}/{str(self.aprox_len)}')
         yielded_2 = False
         yielded_3 = False
         for l1 in self.get_lines_1():
@@ -40,8 +45,7 @@ class Filter(FilterAbstract):
                 for l3 in self.get_lines_3():
                     self.counter += 1
                     if self.counter % 1000000 == 0:
-                        misc.write_text_to_file(f"Combination status: {str(self.counter)}/{str(self.aprox_len)} " + misc.return_formated_date_time(),
-                            self.attacker.final_output_file_progress, append=True)
+                        self.write_and_display_status(f'{str(self.counter)}/{str(self.aprox_len)}')
                     if not yielded_3:
                         yield f"{l3}"
                     yield f"{l1}{l3}"
@@ -54,7 +58,6 @@ class Filter(FilterAbstract):
                     yield f"{l2}{l3}{l1}"
                     yield f"{l3}{l1}{l2}"
                     yield f"{l3}{l2}{l1}"
-                yielded_3 = True
-            yielded_2 = True
-        misc.write_text_to_file(f"Combination status: {str(self.counter)}/{str(self.aprox_len)} " + misc.return_formated_date_time(),
-            self.attacker.final_output_file_progress, append=True)
+                yielded_3 = True # We need to yield all lines in the file 3, not just 1, hence not in the if after yield
+            yielded_2 = True# We need to yield all lines in the file 2, not just 1, hence not in the if after yield
+        self.write_and_display_status(f'{str(self.counter)}/{str(self.aprox_len)}')

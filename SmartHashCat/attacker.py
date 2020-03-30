@@ -1,4 +1,5 @@
 import os
+from phases.phase0 import Phase0
 from phases.phase1 import Phase1
 from phases.phase_mask import PhaseMask
 
@@ -17,6 +18,8 @@ class SmartHCAttacker:
         self.hashes_file = ''
         self.hashcat_path = '/usr/bin/hashcat'
         self.with_phase_zero = False
+        self.smart_file = 'tmp/SmartFile.txt'
+        self.buffer_line_count = int((1024*1024*1024) / (20)) # 1GB / 20 characters per line
 
         self.custom_list = ""
         self.rock_you_file = "/usr/share/SmartHashCat/lists/rockyou.txt"
@@ -36,7 +39,8 @@ class SmartHCAttacker:
 
     def attack_dictio(self):
         self.check_rockyou()
-        p1 = Phase1(self)
+        p0 = Phase0(self)
+        p1 = Phase1(self, p0)
         p1.run()
 
     def attack_mask(self, phase_selection=2):

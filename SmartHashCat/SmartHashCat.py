@@ -126,6 +126,10 @@ def parse_args():
                         help='Use this option to restore a previous session '
                              'from it session ID',
                         default='')
+    parser.add_argument('--smart_file_buffer_size',
+                        action='store', type=str, required=False,
+                        help='Use this option to specify the approximate maximum file size to buffer before sending to hashcat (ie. 1G for 1 GB, 1M for 1 MB)',
+                        default='')
     parser.add_argument('--hashcat_path',
                         action='store', type=str, required=False,
                         help='Used when the default hashcat binary path is '
@@ -256,6 +260,30 @@ def main():
                 "Company name (-n) needed for phase 0!")
         attacker.with_phase_zero = True
 
+    if args.smart_file_buffer_size:
+        file_factor_letter = args.smart_file_buffer_size[-1:].upper()
+        file_factor_number = int(args.smart_file_buffer_size[:-1])
+        file_factor_size_from_letter = 1024
+        if file_factor_letter == "M":
+            file_factor_size_from_letter = 1000 * 1000
+        if file_factor_letter == "G":
+            file_factor_size_from_letter = 1000 * 1000 * 1000
+        if file_factor_letter == "T":
+            file_factor_size_from_letter = 1000 * 1000 * 1000 * 1000
+        if file_factor_letter == "P":
+            file_factor_size_from_letter = 1000 * 1000 * 1000 * 1000 * 1000
+        if file_factor_letter == "E":
+            name_of_ridiculous_size = "Exa"
+            print_has_ridiculous_size(name_of_ridiculous_size)
+        if file_factor_letter == "Z":
+            name_of_ridiculous_size = "Zetta"
+            print_has_ridiculous_size(name_of_ridiculous_size)
+        if file_factor_letter == "Y":
+            name_of_ridiculous_size = "Yotta"
+            print_has_ridiculous_size(name_of_ridiculous_size)
+        
+        attacker.buffer_line_count = (file_factor_number * file_factor_size_from_letter) / 20
+
     if args.phase <= 1 and (len(args.phase_array) == 0 or 1 in args.phase_array):
         attacker.attack_dictio()
 
@@ -263,6 +291,10 @@ def main():
         if(args.phase <= i  and (len(args.phase_array) == 0 or i in args.phase_array)):
             attacker.attack_mask(phase_selection=i)
 
+
+def print_has_ridiculous_size(name_of_ridiculous_size):
+    print(f"Seriously?! {name_of_ridiculous_size} bytes?! Nice try....")
+    raise Exception(f"That guy trying to run a dictionnary of {name_of_ridiculous_size} bytes...")
 
 if __name__ == "__main__":
     main()
