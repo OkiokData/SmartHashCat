@@ -266,22 +266,25 @@ def main():
         file_factor_size_from_letter = 1024
         if file_factor_letter == "M":
             file_factor_size_from_letter = 1000 * 1000
-        if file_factor_letter == "G":
+        elif file_factor_letter == "G":
             file_factor_size_from_letter = 1000 * 1000 * 1000
-        if file_factor_letter == "T":
+        elif file_factor_letter == "T":
             file_factor_size_from_letter = 1000 * 1000 * 1000 * 1000
-        if file_factor_letter == "P":
+        elif file_factor_letter == "P":
             file_factor_size_from_letter = 1000 * 1000 * 1000 * 1000 * 1000
-        if file_factor_letter == "E":
+        elif file_factor_letter == "E":
             name_of_ridiculous_size = "Exa"
             print_has_ridiculous_size(name_of_ridiculous_size)
-        if file_factor_letter == "Z":
+        elif file_factor_letter == "Z":
             name_of_ridiculous_size = "Zetta"
             print_has_ridiculous_size(name_of_ridiculous_size)
-        if file_factor_letter == "Y":
+        elif file_factor_letter == "Y":
             name_of_ridiculous_size = "Yotta"
             print_has_ridiculous_size(name_of_ridiculous_size)
-        
+        elif file_factor_letter != "K":
+            print("Invalid buffer size option!")
+            exit(1)
+
         attacker.buffer_line_count = (file_factor_number * file_factor_size_from_letter) / 20
 
     if args.phase <= 1 and (len(args.phase_array) == 0 or 1 in args.phase_array):
